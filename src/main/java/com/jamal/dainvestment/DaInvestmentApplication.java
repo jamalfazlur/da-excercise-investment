@@ -19,7 +19,9 @@ public class DaInvestmentApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(DaInvestmentApplication.class, args);
-		log.info("REST API Investment : READY ...");
+		log.info("------------------------------------------------------------------------");
+		log.info(".................... REST API Investment : READY .......................");
+		log.info("------------------------------------------------------------------------");
 	}
 
 }

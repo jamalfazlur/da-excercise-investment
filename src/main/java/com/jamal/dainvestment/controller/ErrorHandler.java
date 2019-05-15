@@ -1,7 +1,7 @@
 package com.jamal.dainvestment.controller;
 
 import com.jamal.dainvestment.exception.ApplicationError;
-import com.jamal.dainvestment.exception.UserNotFoundException;
+import com.jamal.dainvestment.exception.DataNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,12 +18,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class ErrorHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(DataNotFoundException.class)
 
     /**
      * This is a Javadoc comment
      */
-    public ResponseEntity<ApplicationError> handleCustomerNotFoundException(UserNotFoundException exception, WebRequest webRequest){
+    public ResponseEntity<ApplicationError> handleCustomerNotFoundException(DataNotFoundException exception, WebRequest webRequest){
         ApplicationError error = new ApplicationError();
 
         error.setCode(101);

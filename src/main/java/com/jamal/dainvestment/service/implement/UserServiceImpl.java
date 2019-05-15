@@ -1,6 +1,6 @@
 package com.jamal.dainvestment.service.implement;
 
-import com.jamal.dainvestment.exception.UserNotFoundException;
+import com.jamal.dainvestment.exception.DataNotFoundException;
 import com.jamal.dainvestment.model.User;
 import com.jamal.dainvestment.repository.UserRepository;
 import com.jamal.dainvestment.service.UserService;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public User findById(Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if(!optionalUser.isPresent()){
-            throw new UserNotFoundException("Data User Tidak Ditemukan");
+            throw new DataNotFoundException("Data User Tidak Ditemukan");
         }
         return  optionalUser.get();
     }

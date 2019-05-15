@@ -12,6 +12,7 @@ import com.jamal.dainvestment.util.Response;
 
 /**
  * This is a Javadoc comment
+ * Controller for USER Entity
  */
 
 @RestController
