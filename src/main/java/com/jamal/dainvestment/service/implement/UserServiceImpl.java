@@ -4,9 +4,13 @@ import com.jamal.dainvestment.exception.DataNotFoundException;
 import com.jamal.dainvestment.model.User;
 import com.jamal.dainvestment.repository.UserRepository;
 import com.jamal.dainvestment.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.hibernate.PropertyValueException;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,7 @@ import java.util.Optional;
  * implementasi dari com.jamal.dainvestment.service.UserService
  */
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -41,7 +46,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user){
+        if(user.getUserNama().isEmpty()){
+            log.info(" NULL not allowed for USER_NAMA");
+        }
         return userRepository.save(user);
     }
 

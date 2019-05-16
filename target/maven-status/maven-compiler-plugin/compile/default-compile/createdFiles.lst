@@ -6,10 +6,15 @@ com/jamal/dainvestment/service/implement/UserServiceImpl.class
 com/jamal/dainvestment/controller/ErrorHandler.class
 com/jamal/dainvestment/service/implement/InvestServiceImpl.class
 com/jamal/dainvestment/service/InvestService.class
+com/jamal/dainvestment/model/Trx.class
 com/jamal/dainvestment/service/UserService.class
 com/jamal/dainvestment/DaInvestmentApplication.class
 com/jamal/dainvestment/controller/InvestController.class
 com/jamal/dainvestment/model/Investment.class
 com/jamal/dainvestment/repository/InvestRepository.class
 com/jamal/dainvestment/controller/UserController.class
+com/jamal/dainvestment/controller/TrxController.class
+com/jamal/dainvestment/repository/TrxRepository.class
 com/jamal/dainvestment/util/Response.class
+com/jamal/dainvestment/service/TrxService.class
+com/jamal/dainvestment/service/implement/TrxServiceImpl.class

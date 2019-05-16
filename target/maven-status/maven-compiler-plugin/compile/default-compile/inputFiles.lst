@@ -1,4 +1,6 @@
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/UserController.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/implement/TrxServiceImpl.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/TrxService.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/implement/InvestServiceImpl.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/implement/UserServiceImpl.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/exception/ApplicationError.java
@@ -9,7 +11,10 @@
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/util/Response.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/repository/UserRepository.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/User.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/repository/TrxRepository.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/exception/DataNotFoundException.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/UserService.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Trx.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/TrxController.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Investment.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/InvestController.java

@@ -26,4 +26,7 @@ public class Investment {
 
     @JsonProperty("imbalan")
     private double imbalan;
+
+    @JsonProperty("pajak")
+    private double pajak;
 }
