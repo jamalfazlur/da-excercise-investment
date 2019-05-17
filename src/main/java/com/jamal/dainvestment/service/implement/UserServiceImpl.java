@@ -1,16 +1,14 @@
 package com.jamal.dainvestment.service.implement;
 
 import com.jamal.dainvestment.exception.DataNotFoundException;
+import com.jamal.dainvestment.exception.NullableFalseException;
 import com.jamal.dainvestment.model.User;
 import com.jamal.dainvestment.repository.UserRepository;
 import com.jamal.dainvestment.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.hibernate.PropertyValueException;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user){
-        if(user.getUserNama().isEmpty()){
-            log.info(" NULL not allowed for USER_NAMA");
+        log.info("Nama: " + user.getUserNama() + " Alamat: " + user.getUserAlamat() + " Saldo: " + user.getUserSaldo());
+
+        if(user.getUserNama() == null){
+            log.warn("NULL not allowed for column NAMA");
+            throw new NullableFalseException("Kolum Nama Wajib Diisi");
         }
         return userRepository.save(user);
+
     }
 
     @Override

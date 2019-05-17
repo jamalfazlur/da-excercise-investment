@@ -16,5 +16,6 @@ com/jamal/dainvestment/controller/UserController.class
 com/jamal/dainvestment/controller/TrxController.class
 com/jamal/dainvestment/repository/TrxRepository.class
 com/jamal/dainvestment/util/Response.class
+com/jamal/dainvestment/exception/NullableFalseException.class
 com/jamal/dainvestment/service/TrxService.class
 com/jamal/dainvestment/service/implement/TrxServiceImpl.class

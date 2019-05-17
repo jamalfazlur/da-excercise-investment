@@ -2,10 +2,13 @@ package com.jamal.dainvestment.controller;
 
 import com.jamal.dainvestment.exception.ApplicationError;
 import com.jamal.dainvestment.exception.DataNotFoundException;
+import com.jamal.dainvestment.exception.NullableFalseException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -18,17 +21,33 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class ErrorHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(DataNotFoundException.class)
 
     /**
-     * This is a Javadoc comment
+     * Exception handler Data not Found
      */
-    public ResponseEntity<ApplicationError> handleCustomerNotFoundException(DataNotFoundException exception, WebRequest webRequest){
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<ApplicationError> dataNotFoundException(DataNotFoundException exception, WebRequest webRequest){
         ApplicationError error = new ApplicationError();
 
         error.setCode(404);
         error.setMessage(exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Method argument not valid exception handler response entity.
+     *
+     * @param exception the ex
+     * @return the response entity
+     */
+    @ResponseBody
+    @ExceptionHandler(NullableFalseException.class)
+    public ResponseEntity<ApplicationError> NullableFalseException(NullableFalseException exception, WebRequest webRequest) {
+        ApplicationError error = new ApplicationError();
+
+        error.setCode(500);
+        error.setMessage(exception.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 

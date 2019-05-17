@@ -17,4 +17,5 @@
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Trx.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/TrxController.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Investment.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/exception/NullableFalseException.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/InvestController.java

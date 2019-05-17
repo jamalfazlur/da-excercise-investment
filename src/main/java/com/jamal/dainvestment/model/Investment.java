@@ -22,9 +22,11 @@ public class Investment {
     private String namaSbn;
 
     @JsonProperty("harga_satuan")
+    @Column(nullable = false)
     private int hargaSatuan;
 
     @JsonProperty("imbalan")
+    @Column(nullable = false)
     private double imbalan;
 
     @JsonProperty("pajak")

@@ -1,6 +1,7 @@
 package com.jamal.dainvestment.service.implement;
 
 import com.jamal.dainvestment.exception.DataNotFoundException;
+import com.jamal.dainvestment.exception.NullableFalseException;
 import com.jamal.dainvestment.model.Investment;
 import com.jamal.dainvestment.model.Trx;
 import com.jamal.dainvestment.model.User;
@@ -8,6 +9,8 @@ import com.jamal.dainvestment.repository.InvestRepository;
 import com.jamal.dainvestment.repository.TrxRepository;
 import com.jamal.dainvestment.repository.UserRepository;
 import com.jamal.dainvestment.service.TrxService;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,7 @@ import java.util.Optional;
  * Nilai investasi per 1 unit = Rp 1.0000.0000
  */
 
+@Slf4j
 @Service
 public class TrxServiceImpl implements TrxService {
     @Autowired
@@ -58,6 +62,7 @@ public class TrxServiceImpl implements TrxService {
 
     @Override
     public Trx create(Trx trx) {
+
         int jmlBeli = trx.getJumlahBeli();
 
         /* get detail referensi: investasi */
@@ -73,9 +78,6 @@ public class TrxServiceImpl implements TrxService {
 
         /* get detail referensi: investasi */
         Optional<User> user = userRepository.findById(trx.getIdUser());
-
-        //user = userRepository(1);
-        //user = jamal, alamt
 
         if(!user.isPresent()){
             throw new DataNotFoundException("Data Detil User Tidak Ditemukan");
