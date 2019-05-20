@@ -14,14 +14,22 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class DaInvestmentApplication {
 
+	public static final String STRIP = "------------------------------------------------------------------------";
 	/**
 	 * This is a Javadoc comment
+	 * @param args to args class
 	 */
 	public static void main(String[] args) {
+
+
 		SpringApplication.run(DaInvestmentApplication.class, args);
-		log.info("------------------------------------------------------------------------");
+		log.info(STRIP);
 		log.info(".................... REST API Investment : READY .......................");
-		log.info("------------------------------------------------------------------------");
+		log.info(STRIP);
+		log.info("....... API Docs: http://localhost:8081/investment/swagger-ui.html .....");
+		log.info(STRIP);
+		log.info("............. H2 DB: http://localhost:8081/investment/h2/ ..............");
+		log.info(STRIP);
 	}
 
 }

@@ -14,6 +14,7 @@
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/repository/TrxRepository.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/exception/DataNotFoundException.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/service/UserService.java
+/Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/config/SwaggerConfig.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Trx.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/controller/TrxController.java
 /Users/jamalfazlurrahman/Documents/DOKU Academy/da-exercise-investment/src/main/java/com/jamal/dainvestment/model/Investment.java

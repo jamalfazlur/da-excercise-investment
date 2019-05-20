@@ -56,4 +56,22 @@ public class TrxController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
+
+    @GetMapping(value = "/{id}")
+    ResponseEntity<Response> getById (@PathVariable("id") Integer id){
+        String nameofCurrMethod = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+
+        Response response = new Response();
+        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setMessage("Berhasil Menampilkan Data Berdasarkan ID");
+
+        response.setData(trxService.findById(id));
+
+        return  ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
 }

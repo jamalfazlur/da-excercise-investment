@@ -10,8 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.jamal.dainvestment.util.Response;
 
-import java.sql.SQLException;
-
 /**
  * This is a Javadoc comment
  * Controller for USER Entity

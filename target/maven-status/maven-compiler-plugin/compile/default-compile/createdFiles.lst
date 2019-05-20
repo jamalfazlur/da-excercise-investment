@@ -7,6 +7,7 @@ com/jamal/dainvestment/controller/ErrorHandler.class
 com/jamal/dainvestment/service/implement/InvestServiceImpl.class
 com/jamal/dainvestment/service/InvestService.class
 com/jamal/dainvestment/model/Trx.class
+com/jamal/dainvestment/config/SwaggerConfig.class
 com/jamal/dainvestment/service/UserService.class
 com/jamal/dainvestment/DaInvestmentApplication.class
 com/jamal/dainvestment/controller/InvestController.class

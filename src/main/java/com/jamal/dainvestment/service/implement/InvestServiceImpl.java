@@ -39,11 +39,16 @@ public class InvestServiceImpl implements InvestService {
 
     @Override
     public Investment create(Investment investment) {
-        log.info("SBN: " + investment.getNamaSbn() + ", Harga Satuan: Rp." + investment.getHargaSatuan() + ", Imbalan: " + (int)investment.getImbalan()*100 + "%");
+        double hargaSatuan = investment.getHargaSatuan();
+        double imbalan = investment.getImbalan();
 
-            if (investment.getHargaSatuan() == 0) {
+        log.info("------------------------------------------>>------------------------------------------>> SBN : " + investment.getNamaSbn() );
+        log.info("------------------------------------------>> Harga Satuan : Rp." + hargaSatuan );
+        log.info("------------------------------------------>> Imbalan : " + (int)imbalan*100 + "%" );
+
+            if (hargaSatuan <= 0) {
                 throw new NullableFalseException("Kolom harga_satuan Wajib Diisi");
-            } else if (investment.getImbalan() == 0) {
+            } else if (investment.getImbalan() <= 0) {
                 throw new NullableFalseException("Kolom imbalan Wajib Diisi");
             }
         return investRepository.save(investment);

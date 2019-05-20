@@ -3,7 +3,6 @@ package com.jamal.dainvestment.controller;
 import com.jamal.dainvestment.exception.ApplicationError;
 import com.jamal.dainvestment.exception.DataNotFoundException;
 import com.jamal.dainvestment.exception.NullableFalseException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +23,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Exception handler Data not Found
+     * This is a Javadoc comment
+     * @param exception the parameter of the class
+     * @param webRequest the parameter of the class
+     * @return exception message
      */
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<ApplicationError> dataNotFoundException(DataNotFoundException exception, WebRequest webRequest){
@@ -38,11 +41,12 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
      * Method argument not valid exception handler response entity.
      *
      * @param exception the ex
+     * @param webRequest the web request
      * @return the response entity
      */
     @ResponseBody
     @ExceptionHandler(NullableFalseException.class)
-    public ResponseEntity<ApplicationError> NullableFalseException(NullableFalseException exception, WebRequest webRequest) {
+    public ResponseEntity<ApplicationError> nullableFalseException(NullableFalseException exception, WebRequest webRequest) {
         ApplicationError error = new ApplicationError();
 
         error.setCode(500);

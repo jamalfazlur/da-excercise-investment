@@ -1,7 +1,6 @@
 package com.jamal.dainvestment.service.implement;
 
 import com.jamal.dainvestment.exception.DataNotFoundException;
-import com.jamal.dainvestment.exception.NullableFalseException;
 import com.jamal.dainvestment.model.Investment;
 import com.jamal.dainvestment.model.Trx;
 import com.jamal.dainvestment.model.User;
@@ -10,7 +9,6 @@ import com.jamal.dainvestment.repository.TrxRepository;
 import com.jamal.dainvestment.repository.UserRepository;
 import com.jamal.dainvestment.service.TrxService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,25 +67,26 @@ public class TrxServiceImpl implements TrxService {
         Optional<Investment> investment = investRepository.findById(trx.getIdSbn());
 
         if(!investment.isPresent()){
-            throw new DataNotFoundException("Data Detil Investasi Tidak Ditemukan");
+            throw new DataNotFoundException("ID SBN Salah! Data Detil Investasi Tidak Ditemukan!");
         }
 
         int refHargaSatuan = investment.get().getHargaSatuan();
         double refPajak = investment.get().getPajak();
         double refImbalan = investment.get().getImbalan();
+        String refNamaSbn = investment.get().getNamaSbn();
 
         /* get detail referensi: investasi */
         Optional<User> user = userRepository.findById(trx.getIdUser());
 
         if(!user.isPresent()){
-            throw new DataNotFoundException("Data Detil User Tidak Ditemukan");
+            throw new DataNotFoundException("ID User Salah! Data Detil User Tidak Ditemukan!");
         }
 
         String nama = user.get().getUserNama();
         trx.setUserNama(nama);
 
         /* set total_bayar */
-        int totBayar = refHargaSatuan * jmlBeli;
+        int totBayar = refHargaSatuan * jmlBeli; // 2 * 1jt == 2jt
         trx.setTotalBayar(totBayar);
 
         int saldoMinusBayar = user.get().getUserSaldo() - totBayar;
@@ -105,6 +104,12 @@ public class TrxServiceImpl implements TrxService {
         double totImbalan = imbalanNett * 24;
         trx.setTotalImbalan((int)totImbalan);
 
+        log.info("------------------------------------------>> User: " + nama);
+        log.info("------------------------------------------>> SBN: " + refNamaSbn);
+        log.info("------------------------------------------>> Harga Satuan: Rp." + refHargaSatuan);
+        log.info("------------------------------------------>> Imbalan: " + refImbalan*100 + "%");
+        log.info("------------------------------------------>> Jumlah Beli: " + jmlBeli);
+        log.info("------------------------------------------>> Total: Rp." + totBayar);
 
         return trxRepository.save(trx);
     }
