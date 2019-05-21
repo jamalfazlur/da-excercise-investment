@@ -49,7 +49,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApplicationError> nullableFalseException(NullableFalseException exception, WebRequest webRequest) {
         ApplicationError error = new ApplicationError();
 
-        error.setCode(500);
+        error.setCode(400);
         error.setMessage(exception.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
