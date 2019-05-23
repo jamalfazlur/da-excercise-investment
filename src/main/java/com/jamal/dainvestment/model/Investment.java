@@ -22,13 +22,14 @@ public class Investment {
     private String namaSbn;
 
     @JsonProperty("harga_satuan")
-    @Column(nullable = false)
+    @Column(name = "harga_satuan", nullable = false)
     private int hargaSatuan;
 
     @JsonProperty("imbalan")
-    @Column(nullable = false)
+    @Column(name = "imbalan", nullable = false)
     private double imbalan;
 
     @JsonProperty("pajak")
+    @Column(name = "pajak")
     private double pajak;
 }

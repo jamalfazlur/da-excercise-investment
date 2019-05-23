@@ -1,7 +1,6 @@
 package com.jamal.dainvestment.model;
 
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -16,17 +15,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
-    @Column(nullable = false, updatable = false)
+    @Column(name = "user_id",  nullable = false, updatable = false)
     private int userId;
 
     @JsonProperty("nama")
-    @Column(nullable = false)
+    @Column(name = "user_nama", nullable = false)
     private String userNama;
 
     @JsonProperty("alamat")
+    @Column(name = "user_alamat")
     private String userAlamat;
 
     @JsonProperty("saldo")
+    @Column(name = "user_saldo")
     private int userSaldo;
 
 }

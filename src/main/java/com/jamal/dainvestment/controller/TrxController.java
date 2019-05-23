@@ -1,6 +1,6 @@
 package com.jamal.dainvestment.controller;
 
-import com.jamal.dainvestment.model.Trx;
+import com.jamal.dainvestment.dto.TrxDto;
 import com.jamal.dainvestment.service.TrxService;
 import com.jamal.dainvestment.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class TrxController {
     private TrxService trxService;
 
     @PostMapping
-    ResponseEntity<Response> create (@RequestBody @Validated Trx trx){
+    ResponseEntity<Response> create (@RequestBody @Validated TrxDto trx){
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Membuat Data Trx");
 
         response.setData(trxService.create(trx));
@@ -46,7 +46,7 @@ public class TrxController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Seluruh Data Trx");
 
         response.setData(trxService.findAll());
@@ -64,7 +64,7 @@ public class TrxController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Data Berdasarkan ID");
 
         response.setData(trxService.findById(id));

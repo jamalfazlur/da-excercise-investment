@@ -1,6 +1,6 @@
 package com.jamal.dainvestment.controller;
 
-import com.jamal.dainvestment.model.User;
+import com.jamal.dainvestment.dto.UserDto;
 import com.jamal.dainvestment.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,13 +23,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    ResponseEntity<Response> create (@RequestBody @Validated User user){
+    ResponseEntity<Response> create (@RequestBody @Validated UserDto user){
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Membuat Data");
 
         response.setData(userService.create(user));
@@ -47,7 +47,7 @@ public class UserController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Seluruh Data");
 
 
@@ -66,7 +66,7 @@ public class UserController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Data Berdasarkan ID");
 
 
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    ResponseEntity<Response> update (@PathVariable("id") Integer id, @RequestBody @Validated User user)
+    ResponseEntity<Response> update (@PathVariable("id") Integer id, @RequestBody @Validated UserDto user)
     {
 
         String nameofCurrMethod = new Throwable()
@@ -87,7 +87,7 @@ public class UserController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Update Data");
 
         response.setData(userService.update(id, user));
@@ -108,7 +108,7 @@ public class UserController {
 
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Data Berhasil dihapus");
         response.setData(userService.findById(id));
 

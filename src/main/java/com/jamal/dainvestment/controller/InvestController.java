@@ -1,6 +1,6 @@
 package com.jamal.dainvestment.controller;
 
-import com.jamal.dainvestment.model.Investment;
+import com.jamal.dainvestment.dto.InvestDto;
 import com.jamal.dainvestment.service.InvestService;
 import com.jamal.dainvestment.util.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +24,13 @@ public class InvestController {
     private InvestService investService;
 
     @PostMapping
-    ResponseEntity<Response> create (@RequestBody @Validated Investment investment){
+    ResponseEntity<Response> create (@RequestBody @Validated InvestDto investment){
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Membuat Data");
 
         log.info(String.valueOf(investment));
@@ -50,7 +50,7 @@ public class InvestController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Seluruh Data");
 
 
@@ -69,7 +69,7 @@ public class InvestController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Menampilkan Data Berdasarkan ID");
 
         response.setData(investService.findById(id));
@@ -81,7 +81,7 @@ public class InvestController {
     }
 
     @PutMapping(value = "/{id}")
-    ResponseEntity<Response> update (@PathVariable("id") String id, @RequestBody @Validated Investment investment)
+    ResponseEntity<Response> update (@PathVariable("id") String id, @RequestBody @Validated InvestDto investment)
     {
 
         String nameofCurrMethod = new Throwable()
@@ -89,7 +89,7 @@ public class InvestController {
                 .getMethodName();
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Berhasil Update Data");
 
         response.setData(investService.update(id, investment));
@@ -110,7 +110,7 @@ public class InvestController {
 
 
         Response response = new Response();
-        response.setService(this.getClass().getName() + nameofCurrMethod);
+        response.setService(this.getClass().getName() + "." + nameofCurrMethod);
         response.setMessage("Data Berhasil dihapus");
         response.setData(investService.findById(id));
 

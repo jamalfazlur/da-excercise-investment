@@ -1,4 +1,3 @@
-target/*
-### IntelliJ IDEA ###
-.idea
-.idea/sonarlint/
+/target/
+/.idea/
+/.metadata/
