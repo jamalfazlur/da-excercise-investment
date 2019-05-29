@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.List;
+import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -32,31 +32,98 @@ public class InvestServiceTest {
             log.info("======= Imbalan: " + investments.get(i).getImbalan()*100 + "%");
             log.info("======= Pajak: " + investments.get(i).getPajak()*100 + "%");
         }
+
     }
 
     @Test
-    public void testFindById() throws Exception {
+    public void testFindByIdInvestTest() throws Exception {
         String id = "ST";
 
         log.info("======= Test Find By Id =======");
         Investment investment = investService.findById(id);
-        log.info("======= What to find? =========> " + id);
-        log.info("======= .: Result :. =======");
-        log.info("======= Nama SBN: " + investment.getNamaSbn());
-        log.info("======= Harga per Unit: Rp." + investment.getHargaSatuan());
-        log.info("======= Imbalan: " + investment.getImbalan()*100 + "%");
-        log.info("======= Pajak: " + investment.getPajak()*100 + "%");
+
+        assertThat(investment)
+                .hasFieldOrProperty("namaSbn");
+        assertThat(investment)
+                .hasFieldOrProperty("hargaSatuan");
+        assertThat(investment)
+                .hasFieldOrProperty("imbalan");
+        assertThat(investment)
+                .hasFieldOrProperty("pajak");
+
     }
 
-    public void testCreateRefInvestment() throws Exception {
-        InvestDto investment = new InvestDto();
-        investment.setIdSbn("ORI");
-        investment.setNamaSbn("Obligasi Negara Ritel");
-        investment.setHargaSatuan(1000000);
-        investment.setImbalan(0.0825);
-        investment.setPajak(0.20);
+    @Test
+    public void testCreateInvestment() throws Exception {
+        int investment1 = investService.findAll().size();
 
-        investService.create(investment);
+        InvestDto dataTest = new InvestDto();
+        dataTest.setIdSbn("ORI");
+        dataTest.setNamaSbn("Obligasi Negara Ritel");
+        dataTest.setHargaSatuan(1000000);
+        dataTest.setImbalan(0.0825);
+        dataTest.setPajak(0.20);
 
+        investService.create(dataTest);
+
+        List<Investment> investments2 = investService.findAll();
+        int lastIndex = investments2.size() -1;
+
+        Investment investment = investments2.get(lastIndex);
+        assertThat(investment).isEqualToComparingFieldByField(dataTest);
+
+        assertThat(investment1).isLessThan(investments2.size());
+    }
+
+    @Test
+    public void testUpdateInvestment() throws Exception {
+        String id = "ST";
+        Investment investment = investService.findById(id);
+
+        String namaSbnOld = investment.getNamaSbn();
+        int hargaSatuanOld = investment.getHargaSatuan();
+        double imbalanOld = investment.getImbalan();
+        double pajakOld = investment.getPajak();
+
+        InvestDto invest = new InvestDto();
+        invest.setIdSbn(id);
+        invest.setNamaSbn("Setelah Time");
+        invest.setHargaSatuan(12);
+        invest.setPajak(0.9);
+        invest.setImbalan(0.010);
+
+        investService.update(id, invest);
+
+        Investment toCompare = investService.findById(id);
+
+        log.info("==== Comparing: " + toCompare.getIdSbn() + " <> " + id);
+        assertThat(toCompare.getIdSbn()).isEqualTo(id);
+
+        log.info("==== Comparing: " + toCompare.getNamaSbn() + " <> " + namaSbnOld);
+        assertThat(toCompare.getNamaSbn()).isNotEqualTo(namaSbnOld);
+
+        log.info("==== Comparing: " + toCompare.getHargaSatuan() + " <> " + hargaSatuanOld);
+        assertThat(toCompare.getHargaSatuan()).isNotEqualTo(hargaSatuanOld);
+
+        log.info("==== Comparing: " + toCompare.getImbalan() + " <> " + imbalanOld);
+        assertThat(toCompare.getImbalan()).isNotEqualTo(imbalanOld);
+
+        log.info("==== Comparing: " + toCompare.getPajak() + " <> " + pajakOld);
+        assertThat(toCompare.getPajak()).isNotEqualTo(pajakOld);
+    }
+
+    @Test
+    public void testDeleteInvestment() throws Exception {
+        String id = "SBR";
+
+        int investmentsTotal = investService.findAll().size();
+        log.info("Sebelum Delete: " + String.valueOf(investmentsTotal));
+
+        investService.delete(id);
+
+        int investmentsTotalNew = investService.findAll().size();
+        log.info("Setelah Delete: " + String.valueOf(investmentsTotalNew));
+
+        assertThat(investmentsTotal).isGreaterThan(investmentsTotalNew);
     }
 }

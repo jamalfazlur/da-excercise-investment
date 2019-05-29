@@ -1,11 +1,11 @@
 package com.jamal.dainvestment.User;
 
 import com.jamal.dainvestment.controller.UserController;
+import com.jamal.dainvestment.exception.DataNotFoundException;
 import com.jamal.dainvestment.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,8 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
@@ -32,12 +31,12 @@ public class UserControllerTest {
     private UserController userController;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testFindAllUserController() throws Exception {
         mockMvc.perform(get("/user")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -47,7 +46,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getById() throws Exception {
+    public void getByIdUserController() throws Exception {
         int id = 1;
         mockMvc.perform(get("/user/" + id)
                 .accept(MediaType.APPLICATION_JSON))
@@ -58,7 +57,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testCreateSuccess() throws Exception {
+    public void testCreateSuccessUserController() throws Exception {
         String json =   "{\n" +
                 "  \"nama\"     : \"Jamal\",    \n" +
                 "  \"alamat\"   : \"Depok\",    \n" +
@@ -75,7 +74,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testCreateFailed() throws Exception {
+    public void testCreateFailedUserController() throws Exception {
         String json =  ""; //kalau diisi "{}", testing akan dianggap berhasil (success/200), padahal kosong
 
         mockMvc.perform(post("/user")
@@ -84,6 +83,36 @@ public class UserControllerTest {
                 //.andExpect(jsonPath("$.message", Matchers.is("Kolum Nama Wajib Diisi")))
                 .andExpect(status().isBadRequest())
         ;
+    }
+
+    @Test
+    public void updateUserController() throws  Exception {
+        int id = 1;
+        String json =   "{\n" +
+                "  \"nama\"     : \"JamalNew\",    \n" +
+                "  \"alamat\"   : \"DepokUpdated\",    \n" +
+                "  \"saldo\"    : 5250500       \n" +
+                "}";
+
+        mockMvc.perform(put("/user/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.service", Matchers.is("com.jamal.dainvestment.controller.UserController.update")))
+                .andExpect(jsonPath("$.message", Matchers.is("Berhasil Update Data")))
+                .andExpect(jsonPath("$.*", Matchers.hasSize(3)));
+
+    }
+
+    @Test
+    public void deleteUserController() throws Exception {
+        int id = 1;
+
+        mockMvc.perform(delete("/user/" + id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.service", Matchers.is("com.jamal.dainvestment.controller.UserController.deleteById")))
+                .andExpect(jsonPath("$.message", Matchers.is("Data Berhasil dihapus")))
+                .andExpect(jsonPath("$.*", Matchers.hasSize(3)));
     }
 
 }

@@ -2,7 +2,6 @@ package com.jamal.dainvestment.service;
 
 import com.jamal.dainvestment.dto.InvestDto;
 import com.jamal.dainvestment.exception.DataNotFoundException;
-import com.jamal.dainvestment.exception.NullableFalseException;
 import com.jamal.dainvestment.model.Investment;
 import com.jamal.dainvestment.repository.InvestRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -58,11 +57,6 @@ public class InvestService {
         newInvest.setHargaSatuan(investment.getHargaSatuan());
         newInvest.setImbalan(investment.getImbalan());
         newInvest.setPajak(investment.getPajak());
-
-        if (investment.getHargaSatuan() <= 0) {
-            throw new NullableFalseException("Kolom harga_satuan Wajib Diisi"); }
-        if (investment.getImbalan() <= 0) {
-            throw new NullableFalseException("Kolom imbalan Wajib Diisi"); }
 
         investment.setIdSbn(investRepository.save(newInvest).getIdSbn().toUpperCase());
 

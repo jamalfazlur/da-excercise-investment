@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,15 +67,17 @@ public class TrxService {
      */
     public TrxDto create(TrxDto trx) {
 
+        Timestamp createdTime = new Timestamp(new Date().getTime());
+
         int jmlBeli = trx.getJumlahBeli();
 
-        String IdSbnUpper = trx.getIdSbn().toUpperCase();
+        String idSbnUpperCase = trx.getIdSbn().toUpperCase();
 
-        trx.setIdSbn(IdSbnUpper);
+        trx.setIdSbn(idSbnUpperCase);
 
         /*========================= get detail referensi: investasi =========================== */
 
-        Optional<Investment> investment = investRepository.findById(IdSbnUpper);
+        Optional<Investment> investment = investRepository.findById(idSbnUpperCase);
 
         if(!investment.isPresent()){
             throw new DataNotFoundException("ID SBN Salah! Data Detil Investasi Tidak Ditemukan!");
@@ -161,6 +165,12 @@ public class TrxService {
 
         /* ============================================ */
 
+        createTrx.setCreatedTime(createdTime);
+        trx.setCreatedTime(createdTime);
+
+        /* ============================================ */
+
+        log.info("------------------------------------------>> TIMESTAMP: " + createdTime);
         log.info("------------------------------------------>> User: " + nama);
         log.info("------------------------------------------>> SBN: " + refNamaSbn);
         log.info("------------------------------------------>> Harga Satuan: Rp." + refHargaSatuan);
@@ -175,12 +185,4 @@ public class TrxService {
         return trx;
     }
 
-    /**
-     * Investment update / PUT
-     * @param id trx
-     * @return trx data deleted
-     */
-    public void delete(Integer id) {
-        trxRepository.deleteById(id);
-    }
 }

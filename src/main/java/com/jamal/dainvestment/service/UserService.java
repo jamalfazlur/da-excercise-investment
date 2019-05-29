@@ -2,7 +2,6 @@ package com.jamal.dainvestment.service;
 
 import com.jamal.dainvestment.dto.UserDto;
 import com.jamal.dainvestment.exception.DataNotFoundException;
-import com.jamal.dainvestment.exception.NullableFalseException;
 import com.jamal.dainvestment.model.User;
 import com.jamal.dainvestment.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +27,7 @@ public class UserService {
      * no param
      * @return users data
      */
-    public List<User> findAll() {
-
-        List<User> allUser = userRepository.findAll();
-        return allUser;
-    }
+    public List<User> findAll() { return userRepository.findAll(); }
 
     /**
      * Investment find By Id / GET
@@ -73,11 +68,6 @@ public class UserService {
     public UserDto create(UserDto user){
         log.info("Nama: " + user.getUserNama() + " Alamat: " + user.getUserAlamat() + " Saldo: " + user.getUserSaldo());
 
-        if(user.getUserNama() == null){
-            log.warn("NULL not allowed for column NAMA");
-            throw new NullableFalseException("Kolum Nama Wajib Diisi");
-        }
-
         User newUser = new User(); // Instance Entity User
 
         newUser.setUserNama(user.getUserNama());
@@ -87,6 +77,8 @@ public class UserService {
         int newUserId = userRepository.save(newUser).getUserId(); // get idUser dari hasil user yang baru dibuat
 
         user.setUserId(newUserId); // set idUser dari hasil user yang baru dibuat
+
+        user.setUserId(newUser.getUserId());
 
         return user;
 

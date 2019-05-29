@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 import com.jamal.dainvestment.util.Response;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * This is a Javadoc comment
@@ -23,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    ResponseEntity<Response> create (@RequestBody @Validated UserDto user){
+    ResponseEntity<Response> create (@Valid @RequestBody UserDto user) {
         String nameofCurrMethod = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();

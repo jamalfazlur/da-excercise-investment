@@ -3,6 +3,7 @@ package com.jamal.dainvestment.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Entity untuk table Transaksi
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class Trx {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     @Column(name = "id")
     private int id;
@@ -52,4 +53,7 @@ public class Trx {
     @JsonProperty("total_imbalan")
     @Column(name = "total_imbalan")
     private int totalImbalan;
+
+    @Column(name = "created_time")
+    private Timestamp createdTime;
 }
