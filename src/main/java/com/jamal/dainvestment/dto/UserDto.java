@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UserDto {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private int userId;
 

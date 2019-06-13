@@ -103,8 +103,6 @@ public class TrxService {
 
         Trx createTrx = new Trx(); // instance obj for db purpose
 
-        createTrx.setId(trx.getId()); //
-
         createTrx.setJumlahBeli(trx.getJumlahBeli()); // set: 2
 
         createTrx.setIdSbn(trx.getIdSbn()); // set: ST

@@ -2,7 +2,6 @@ package com.jamal.dainvestment.User;
 
 import com.jamal.dainvestment.dto.UserDto;
 import com.jamal.dainvestment.exception.DataNotFoundException;
-import com.jamal.dainvestment.exception.ErrorExceptionHandler;
 import com.jamal.dainvestment.model.User;
 import com.jamal.dainvestment.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;

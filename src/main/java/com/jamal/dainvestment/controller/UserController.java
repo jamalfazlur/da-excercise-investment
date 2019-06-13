@@ -2,13 +2,17 @@ package com.jamal.dainvestment.controller;
 
 import com.jamal.dainvestment.dto.UserDto;
 import com.jamal.dainvestment.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import com.jamal.dainvestment.util.Response;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -17,12 +21,68 @@ import javax.validation.Valid;
  * Controller for USER Entity
  */
 
-@RestController
+@Slf4j
+@Controller
 @RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    /*================= User Interface (ThymeLeaf) =================*/
+
+    @GetMapping(value = "get")
+    public ModelAndView getUserView() {
+        ModelAndView modelAndView = new ModelAndView("getuser");
+        modelAndView.addObject("allUser", userService.findAll()); // obj allUser = userService.findAll();
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "get/{id}")
+    public ModelAndView getUserDetailView(@PathVariable("id") int id) {
+        ModelAndView modelAndView = new ModelAndView("getuserdetail");
+        modelAndView.addObject("userDetail", userService.findById(id));
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "create")
+    public ModelAndView postUserView() {
+        ModelAndView modelAndView = new ModelAndView("createuser");
+        return modelAndView;
+    }
+
+    @PostMapping("create")
+    public ModelAndView postUser(@Valid UserDto user, BindingResult result) {
+        log.info("===== Masuk ke Mode POST =======");
+        ModelAndView modelAndView = new ModelAndView("createuser");
+
+        log.info("Nama: " + user.getUserNama());
+        log.info("Alamat: " + user.getUserAlamat());
+        log.info("Saldo: Rp. " + user.getUserSaldo());
+
+        userService.create(user);
+        modelAndView.addObject("allUser", userService.findAll());
+
+        modelAndView.setViewName("getuser");
+
+        return modelAndView;
+    }
+
+    @GetMapping("delete/{id}")
+    public ModelAndView deleteUser(@PathVariable("id") int id) {
+        log.info("===== Masuk ke Mode DELETE =======");
+        ModelAndView modelAndView = new ModelAndView("getuser");
+
+        userService.delete(id);
+        modelAndView.addObject("allUser", userService.findAll());
+        modelAndView.setViewName("getuser");
+
+        return modelAndView;
+    }
+
+    /*==============================================================*/
 
     @PostMapping
     ResponseEntity<Response> create (@Valid @RequestBody UserDto user) {

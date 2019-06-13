@@ -18,7 +18,6 @@ import java.sql.Timestamp;
 @Data
 public class TrxDto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private int id;
 

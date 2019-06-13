@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Investment Industry</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<!-- Just an image -->
+<nav class="navbar navbar-light bg-light mb-3">
+    <a class="navbar-brand" th:href="@{/}">
+        Investment
+    </a>
+</nav>
+<div class="container pl-0 pr-0">
+    <h5>Show All User</h5>
+    <a th:href="@{create}"><div class="btn btn-success">Create User</div></a>
+    <hr/>
+
+    <div class="row justify-content-center">
+        <div class="card col-md-2 mr-2 mb-2 pl-0 pr-0" th:each="user : ${allUser}">
+            <img th:src="@{https://i1.wp.com/www.molddrsusa.com/wp-content/uploads/2015/11/profile-empty.png.250x250_q85_crop.jpg?ssl=1}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-title" th:text="${user.userNama}" />
+
+                <p class="card-text font-weight-light" th:text="${user.userAlamat}" />
+                <p class="card-text font-weight-light" th:text="${user.userSaldo}" />
+                <a class="btn btn-primary col-md-8 text-wrap" href="getuserdetail.html" th:href="@{|get/${user.userId}|}">See Detail</a>
+                <a class="btn btn-outline-danger col-md-3 text-center" th:href="@{|delete/${user.userId}|}">X</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="row">
+    <div class="col-md">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Saldo</th>
+            </tr>
+
+            &lt;!&ndash;<tr th:each="user : ${allUser}" class='clickable-row' th:href="@{|getuserdetail/${user.userId}|}" data-href="getuserdetail.html">
+                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.userNama}"></td>
+                    <td th:text="${user.userAlamat}"></td>
+                    <td th:text="${user.userSaldo}"></td>
+            </tr>&ndash;&gt;
+        </table>
+    </div>
+
+</div>-->
+</body>
+</html>
