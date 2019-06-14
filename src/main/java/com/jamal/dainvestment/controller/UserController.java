@@ -13,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import com.jamal.dainvestment.util.Response;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 
@@ -71,15 +73,14 @@ public class UserController {
     }
 
     @GetMapping("delete/{id}")
-    public ModelAndView deleteUser(@PathVariable("id") int id) {
+    public RedirectView deleteUser(@PathVariable("id") int id) {
         log.info("===== Masuk ke Mode DELETE =======");
-        ModelAndView modelAndView = new ModelAndView("getuser");
-
+        log.info("DELETE ID: " + id);
         userService.delete(id);
-        modelAndView.addObject("allUser", userService.findAll());
-        modelAndView.setViewName("getuser");
 
-        return modelAndView;
+        final String basePath = ServletUriComponentsBuilder.fromCurrentContextPath().build().getPath();
+
+        return new RedirectView(basePath + "/user/get");
     }
 
     /*==============================================================*/

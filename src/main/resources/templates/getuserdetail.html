@@ -3,6 +3,7 @@
 <head>
     <title>Investment Industry</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <!-- Just an image -->
@@ -12,13 +13,86 @@
     </a>
 </nav>
 <div class="container pl-0 pr-0">
-    <h5>Show All User</h5>
+    <a class="btn btn-outline-success btn-sm mt-2 font-weight-lighter" th:href="@{/user/get}"><i class='fa fa-angle-double-left'></i> Kembali</a>
+    <hr />
+    <h5>Profile Details</h5>
     <div class="row">
-        <div class="col-md">
-            <p th:text="${userDetail.userNama}" />
+        <div class="col-md-3">
+            <img class="img-thumbnail" th:src="@{https://i1.wp.com/www.molddrsusa.com/wp-content/uploads/2015/11/profile-empty.png.250x250_q85_crop.jpg?ssl=1}"/>
         </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" th:text="${userDetail.userNama}"><a><i class="fa fa-edit"></i></a> Nama</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:text="${userDetail.userAlamat}">Alamat</li>
+                    <li class="list-group-item" th:text="${userDetail.userSaldo}">Saldo</li>
+                    <li class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempor facilisis cursus. Integer a gravida nisi, et scelerisque eros. Aenean vitae finibus purus. Nulla a ipsum non lacus ultrices luctus. Nunc in augue ligula. Curabitur a purus sit amet eros luctus fringilla vel ut erat. Praesent sit amet dui feugiat, fringilla libero quis, sollicitudin sem.</li>
+                    <li class="list-group-item"> <a href="#" class="btn btn-sm btn-success" onclick="showUpdateForm()"><i class="fa fa-edit"></i> Update</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div><br/>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-3 invisible" id="formUpdateUser"> <!--INI YANG BIKIN INVISIBLE-->
+            <h5>Update User</h5>
+            <div class="card pl-3 pr-3">
+                <br/>
+                <form th:action="@{create}" th:object="${user}" method="POST">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label for="userId" class="col-sm-2 col-form-label">ID</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="userId" name="userNama" th:value="${userDetail.userId}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="userNama" class="col-sm-2 col-form-label">Nama</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="userNama" name="userNama" th:value="${userDetail.userNama}" placeholder="Input Nama" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="userAlamat" class="col-sm-2 col-form-label">Alamat</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="userAlamat" name="userAlamat" th:value="${userDetail.userAlamat}" placeholder="Input Alamat" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="userSaldo" class="col-sm-2 col-form-label">Saldo</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="userSaldo" name="userSaldo" th:value="${userDetail.userSaldo}" placeholder="Input Saldo" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row ml-1">
+                            <div class="offset-sm-2 mr-1">
+                                <button type="submit" class="btn btn-sm btn-success" ><i class="fa fa-user-plus"></i> Save</button>
+                            </div>
+                            <div class=""> <input type="reset" th:value="Cancel" class="btn btn-sm btn-secondary" onclick="hiddenUpdateForm()"/></div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
     </div>
 
 </div>
+
+
+<script>
+    function showUpdateForm() {
+        document.getElementById("formUpdateUser").setAttribute("class", "col-md-8 offset-md-3");
+    }
+
+    function hiddenUpdateForm(){
+        document.getElementById("formUpdateUser").setAttribute("class", "col-md-8 offset-md-3 invisible");
+    }
+
+</script>
 </body>
 </html>
