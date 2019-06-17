@@ -8,8 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.validation.Valid;
 
 /**
  * This is a Javadoc comment
@@ -22,6 +28,28 @@ import org.springframework.web.bind.annotation.*;
 public class InvestController {
     @Autowired
     private InvestService investService;
+
+    /*================= User Interface (ThymeLeaf) =================*/
+
+    @GetMapping(value = "get")
+    public ModelAndView getUserView() {
+        ModelAndView modelAndView = new ModelAndView("getinvestment");
+        modelAndView.addObject("allInvest", investService.findAll());
+
+        return modelAndView;
+    }
+
+    @PostMapping("create")
+    public RedirectView createInvestmet(@Valid InvestDto invest, BindingResult result) {
+        log.info("===== Masuk ke Controller Create Investment");
+
+        investService.create(invest);
+
+        final String basePath = ServletUriComponentsBuilder.fromCurrentContextPath().build().getPath();
+
+        return new RedirectView(basePath + "/invest/get");
+    }
+    /*==============================================================*/
 
     @PostMapping
     ResponseEntity<Response> create (@RequestBody @Validated InvestDto investment){

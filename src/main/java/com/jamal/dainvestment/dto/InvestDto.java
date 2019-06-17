@@ -14,18 +14,18 @@ import javax.validation.constraints.NotNull;
 public class InvestDto {
     @Id
     @JsonProperty("id_sbn")
-    @NotNull
+    @NotNull(message = "ID SBN WAJIB DIISI!")
     private String idSbn;
 
     @JsonProperty("nama_sbn")
     private String namaSbn;
 
     @JsonProperty("harga_satuan")
-    @NotNull
+    @NotNull(message = "Harga Satuan SBN wajib dimasukkan!")
     private int hargaSatuan;
 
     @JsonProperty("imbalan")
-    @NotNull
+    @NotNull(message = "Imbalan SBN wajib dimasukkan!")
     private double imbalan;
 
     @JsonProperty("pajak")

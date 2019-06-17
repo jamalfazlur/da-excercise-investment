@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import com.jamal.dainvestment.util.Response;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class UserController {
     @GetMapping(value = "get")
     public ModelAndView getUserView() {
         ModelAndView modelAndView = new ModelAndView("getuser");
-        modelAndView.addObject("allUser", userService.findAll()); // obj allUser = userService.findAll();
+        modelAndView.addObject("allUser", userService.findAll());
 
         return modelAndView;
     }
@@ -64,9 +65,28 @@ public class UserController {
         log.info("Alamat: " + user.getUserAlamat());
         log.info("Saldo: Rp. " + user.getUserSaldo());
 
+        if(result.hasErrors()){
+            ModelAndView modelAndViewNew = new ModelAndView("createuser");
+            modelAndView.setViewName("createuser");
+            log.info("Ada Error Validasi");
+
+            for (FieldError error : result.getFieldErrors() ) {
+                log.info(error.getObjectName() + " - " + error.getDefaultMessage() + " - " + error.getField());
+                modelAndViewNew.addObject("res", error.getDefaultMessage());
+                if(error.getField().equals("userNama")){
+                    modelAndViewNew.addObject("errorForUserNama", error.getDefaultMessage());
+                }
+                if(error.getField().equals("userAlamat")){
+                    modelAndViewNew.addObject("errorForUserAlamat", error.getDefaultMessage());
+                }
+            }
+
+            modelAndView.addObject("createUser", user);
+            return modelAndViewNew;
+        }
+
         userService.create(user);
         modelAndView.addObject("allUser", userService.findAll());
-
         modelAndView.setViewName("getuser");
 
         return modelAndView;
@@ -81,6 +101,23 @@ public class UserController {
         final String basePath = ServletUriComponentsBuilder.fromCurrentContextPath().build().getPath();
 
         return new RedirectView(basePath + "/user/get");
+    }
+
+    @PostMapping("get/update/{id}")
+    public RedirectView updateUser(@PathVariable("id") Integer id, @Valid UserDto user) {
+        log.info("===== Masuk ke Controller Update =========");
+        log.info("UPDATE ID: " + id);
+
+        userService.update(id, user);
+
+        final String basePath = ServletUriComponentsBuilder.fromCurrentContextPath().build().getPath();
+
+
+       /* [
+        Field error in object 'userDto' on field 'userNama': rejected value [a]; codes [Length.userDto.userNama,Length.userNama,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.userNama,userNama]; arguments []; default message [userNama],2147483647,3]; default message [Input Nama Minimal 3 Karakter],
+        Field error in object 'userDto' on field 'userAlamat': rejected value [a]; codes [Length.userDto.userAlamat,Length.userAlamat,Length.java.lang.String,Length]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [userDto.userAlamat,userAlamat]; arguments []; default message [userAlamat],2147483647,3]; default message [Input Alamat Minimal 3 Karakter]
+        ]*/
+        return new RedirectView(basePath + "/user/get/" + id);
     }
 
     /*==============================================================*/

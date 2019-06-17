@@ -34,23 +34,23 @@
     </div><br/>
 
     <div class="row">
-        <div class="col-md-8 offset-md-3 invisible" id="formUpdateUser"> <!--INI YANG BIKIN INVISIBLE-->
+        <div class="col-md-8 offset-md-3 invisible" id="formUpdateUser"> <!-- INI FORM UNTUK UPDATE - DEFAULT INVISIBLE -->
             <h5>Update User</h5>
             <div class="card pl-3 pr-3">
                 <br/>
-                <form th:action="@{create}" th:object="${user}" method="POST">
+                <form th:action="@{|update/${userDetail.userId}|}" th:object="${user}" method="POST">
                     <fieldset>
                         <div class="form-group row">
                             <label for="userId" class="col-sm-2 col-form-label">ID</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="userId" name="userNama" th:value="${userDetail.userId}" readonly/>
+                                <input type="text" class="form-control" id="userId" name="userId" th:value="${userDetail.userId}" readonly/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="userNama" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="userNama" name="userNama" th:value="${userDetail.userNama}" placeholder="Input Nama" />
+                                <input type="text" class="form-control" id="userNama" name="userNama" th:value="${userDetail.userNama}" placeholder="Input Nama" required/>
                             </div>
                         </div>
 

@@ -2,6 +2,7 @@ package com.jamal.dainvestment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jamal.dainvestment.model.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +17,10 @@ import javax.validation.constraints.NotNull;
  * DTO for User Entity
  */
 
-@Getter
+/*@Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor*/
+@Data
 public class UserDto {
     @Id
     @JsonProperty("id")
@@ -26,7 +28,7 @@ public class UserDto {
 
     @JsonProperty("nama")
     @NotNull(message = "Kolom Nama Wajib Diisi")
-    @NotEmpty
+    @NotEmpty(message = "Kolom Nama Wajib Diisi")
     @Length(min = 3, message = "Input Nama Minimal 3 Karakter")
     @Length(max = 30, message = "Input Nama Maksimal 30 Karakter")
     private String userNama;
@@ -43,9 +45,9 @@ public class UserDto {
      * Constructor for UserDto
      * @param user user obj
      */
-    public UserDto(User user) {
+    /*public UserDto(User user) {
         this.userNama = user.getUserNama();
         this.userAlamat = user.getUserAlamat();
         this.userSaldo = user.getUserSaldo();
-    }
+    }*/
 }
